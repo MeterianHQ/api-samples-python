@@ -18,4 +18,4 @@ jobs:
                 autofix_security: conservative
                 autofix_stability: safe
                 autofix_with_pr: true
-                autifix_with_issue: true
+                autofix_with_issue: true
