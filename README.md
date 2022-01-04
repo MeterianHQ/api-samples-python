@@ -1,5 +1,5 @@
 # Python sample API scripts
-A set of sample calls to the Meterian API in Python: use simple python scripts to leverage the power of the [Meterian API](http://api.meterian.io)
+A set of sample calls to the Meterian API in Python: use simple python scripts to leverage the power of the [Meterian API](http://api.meterian.io). You will need to install the 'requests' python library ( `pip3 install requests` ).
 
 ## You will need a token to use these tools!
 
@@ -62,7 +62,7 @@ Fetching information for vulnerability "CVE-2020-9483" from the "java" database.
   cvss:             5
   active:           False
   fixed version(s): [8.0.0]
-  description:      **Resolved** When use H2/MySQL/TiDB as Apache SkyWalking storage, the metadata query through GraphQL protocol, there is a SQL injection vulnerability, which allows to access unpexcted data. Apache SkyWalking 6.0.0 to 6.6.0, 7.0.0 H2/MySQL/TiDB storage implementations don't use the appropriate way to set SQL parameters.
+  description:      **Resolved** When use H2/MySQL/TiDB as Apache SkyWalking storage, the metadata query through GraphQL protocol, there is a SQL injection vulnerability, which allows to access unexpected data. Apache SkyWalking 6.0.0 to 6.6.0, 7.0.0 H2/MySQL/TiDB storage implementations don't use the appropriate way to set SQL parameters.
 ```
 
 ## advisories&#46;py
@@ -120,11 +120,17 @@ If in need of help issue the `--help` flag (all the listed tools support it).
 
 # Other general information
 ## Common parameters
-As a common beheaviour across all the tools, it's also possible to specify the log level with any tool using  soething like this:
+As a common behaviour across all the tools, it's also possible to specify the log level with any tool using  something like this:
 
     ./yadda.py --log=DEBUG
 Beware: the DEBUG level can be very verbose!
 
+## Tools usage with Pipenv
+Should you wish to use the tools through pipenv, after installing ( `pipenv install` ) all the packages from the Pipfile which are required for the tools to function. Simply run `pipenv run [ tool of choice ]`
+
+```bash
+$ pipenv run ./advisories.py dotnet System.Text.RegularExpressions 4.3.0
+```
 
 ## What's more?
 Well. you can build your onw tool using the Meterian API at https://api.meterian.io and you can also contribute to this repository!
