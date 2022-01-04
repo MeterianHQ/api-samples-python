@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 
 import argparse
 from collections import namedtuple
@@ -6,7 +6,7 @@ import logging
 import os
 import requests
 import sys
-import httplib
+import http.client
 import json
 
 API_TOKEN_ENVVAR = 'METERIAN_API_TOKEN'
@@ -25,7 +25,7 @@ class HelpingParser(argparse.ArgumentParser):
 
 
 def _logHttpRequests():
-    httplib.HTTPConnection.debuglevel = 1
+    http.client.HTTPConnection.debuglevel = 1
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
@@ -98,10 +98,10 @@ def _loadVulnerability(args):
         result = TIMEOUT
 
     if result.status_code == 404:
-        print 'No matching vulnerability was found'
+        print('No matching vulnerability was found')
         return None
     elif result.status_code != 200:
-        print 'Unable to successfully contact the meterian server: %s' % str(result)
+        print('Unable to successfully contact the meterian server: %s' % str(result))
         return None
     else:
         return json.loads(result.text)
@@ -140,19 +140,19 @@ if __name__ == '__main__':
         sys.stderr.write('\n')
         sys.exit(-1)
 
-    print 'Fetching information for vulnerability "%s" from the "%s" database...' % (args.vuln, args.db)
+    print('Fetching information for vulnerability "%s" from the "%s" database...' % (args.vuln, args.db))
     vuln = _loadVulnerability(args)
 
     if vuln != None:
         if str(args.db) == "nvd-me" or str(args.db) == "nvd-raw" or str(args.db) == "cpe" or str(args.db) == "cwe":
-            print
+            print()
             print(json.dumps(vuln, indent=4, sort_keys=True))
         else:
-            print '- id:               ' + vuln["id"]
-            print '  library:          ' + vuln["library"]["name"]
-            print '  language:         ' + vuln["library"]["language"]
-            print '  version range:    ' + vuln["versionRange"]
-            print '  severity:         ' + vuln["severity"]
+            print('- id:               ' + vuln["id"])
+            print('  library:          ' + vuln["library"]["name"])
+            print('  language:         ' + vuln["library"]["language"])
+            print('  version range:    ' + vuln["versionRange"])
+            print('  severity:         ' + vuln["severity"])
 
             if len(vuln["links"]) > 0:
                 initialLinkStr = '  links:            '
@@ -165,22 +165,22 @@ if __name__ == '__main__':
                         else:
                             linksStr += '                    ' + url + '\n'
                 if linksStr != initialLinkStr:
-                    print linksStr
+                    print(linksStr)
 
-            print '  source:           ' + vuln["source"]
-            print '  type:             ' + vuln["type"]
+            print('  source:           ' + vuln["source"])
+            print('  type:             ' + vuln["type"])
 
             if vuln.get("cwe") != None:
-                print '  cwe:              ' + vuln["cwe"]
+                print('  cwe:              ' + vuln["cwe"])
 
-            print '  cvss:             ' + str(vuln["cvss"])
-            print '  active:           ' + str(vuln["active"])
+            print('  cvss:             ' + str(vuln["cvss"]))
+            print('  active:           ' + str(vuln["active"]))
 
             if len(vuln["fixedVersions"]) > 0:
                 fixVerStr = '  fixed version(s): ['
                 for fixedVer in vuln["fixedVersions"]:
                     fixVerStr += fixedVer + ', '
                 fixVerStr = fixVerStr[:-2] + ']'
-                print fixVerStr
+                print(fixVerStr)
 
-            print '  description:      ' + vuln["description"]
+            print('  description:      ' + vuln["description"])

@@ -6,7 +6,7 @@ import logging
 import os
 import requests
 import sys
-import httplib
+import http.client
 import json
 
 API_TOKEN_ENVVAR = 'METERIAN_API_TOKEN'
@@ -25,7 +25,7 @@ class HelpingParser(argparse.ArgumentParser):
 
 
 def _logHttpRequests():
-    httplib.HTTPConnection.debuglevel = 1
+    http.client.HTTPConnection.debuglevel = 1
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
@@ -99,7 +99,7 @@ def _loadLicenses(args):
         result = TIMEOUT
 
     if result.status_code != 200:
-        print 'Unable to succesfully contact the meterian server: %s' % str(result)
+        print('Unable to succesfully contact the meterian server: %s' % str(result))
         return None
     else:
         return json.loads(result.text)
@@ -127,12 +127,12 @@ if __name__ == '__main__':
         sys.stderr.write('\n')
         sys.exit(-1)
 
-    print 'Looking for license information about "%s" version "%s" in the "%s" space...' % (args.name, args.version, args.language)
+    print('Looking for license information about "%s" version "%s" in the "%s" space...' % (args.name, args.version, args.language))
     licenses = _loadLicenses(args)
 
     if licenses != None:
-        print 'Found %d license(s):' % len(licenses)
+        print('Found %d license(s):' % len(licenses))
         for licenz in licenses:
-            print '- id:   ' + licenz["id"]
-            print '  name: ' + licenz["name"]
-            print '  uri:  ' + licenz["uri"]
+            print('- id:   ' + licenz["id"])
+            print('  name: ' + licenz["name"])
+            print('  uri:  ' + licenz["uri"])

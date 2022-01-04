@@ -6,7 +6,7 @@ import logging
 import os
 import requests
 import sys
-import httplib
+import http.client
 import json
 
 API_TOKEN_ENVVAR = 'METERIAN_API_TOKEN'
@@ -25,7 +25,7 @@ class HelpingParser(argparse.ArgumentParser):
 
 
 def _logHttpRequests():
-    httplib.HTTPConnection.debuglevel = 1
+    http.client.HTTPConnection.debuglevel = 1
 
     requests_log = logging.getLogger("requests.packages.urllib3")
     requests_log.setLevel(logging.DEBUG)
@@ -99,7 +99,7 @@ def _loadAdvisories(args):
         result = TIMEOUT
 
     if result.status_code != 200:
-        print 'Unable to successfully contact the meterian server: %s' % str(result)
+        print('Unable to successfully contact the meterian server: %s' % str(result))
         return None
     else:
         return json.loads(result.text)
@@ -138,17 +138,17 @@ if __name__ == '__main__':
         sys.stderr.write('\n')
         sys.exit(-1)
 
-    print 'Looking for advisories for "%s" version "%s" in the "%s" space...' % (args.name, args.version, args.language)
+    print('Looking for advisories for "%s" version "%s" in the "%s" space...' % (args.name, args.version, args.language))
     advisories = _loadAdvisories(args)
 
     if advisories != None:
-        print 'Found %d %s:' % (len(advisories), "advisories" if len(advisories) != 1 else "advisory")
+        print('Found %d %s:' % (len(advisories), "advisories" if len(advisories) != 1 else "advisory"))
         for advisory in advisories:
-            print '- id:                  ' + advisory["id"]
-            print '  library:             ' + advisory["library"]["name"]
-            print '  language:            ' + advisory["library"]["language"]
-            print '  version range:       ' + advisory["versionRange"]
-            print '  severity:            ' + advisory["severity"]
+            print('- id:                  ' + advisory["id"])
+            print('  library:             ' + advisory["library"]["name"])
+            print('  language:            ' + advisory["library"]["language"])
+            print('  version range:       ' + advisory["versionRange"])
+            print('  severity:            ' + advisory["severity"])
 
             if len(advisory["links"]) > 0:
                 initialLinkStr = '  links:               '
@@ -161,22 +161,22 @@ if __name__ == '__main__':
                         else:
                             linksStr += '                       ' + url + '\n'
                 if linksStr != initialLinkStr:
-                    print linksStr
+                    print(linksStr)
 
-            print '  source:              ' + advisory["source"]
-            print '  type:                ' + advisory["type"]
+            print('  source:              ' + advisory["source"])
+            print('  type:                ' + advisory["type"])
 
             if advisory["cwe"] != None:
-                print '  cwe:                 ' + advisory["cwe"]
+                print('  cwe:                 ' + advisory["cwe"])
             
-            print '  cvss:                ' + str(advisory["cvss"])
-            print '  active:              ' + str(advisory["active"])
+            print('  cvss:                ' + str(advisory["cvss"]))
+            print('  active:              ' + str(advisory["active"]))
 
             if len(advisory["fixedInVersions"]) > 0:
                 fixVerStr = '  fixed in version(s): ['
                 for fixedVer in advisory["fixedInVersions"]:
                     fixVerStr += fixedVer + ', '
                 fixVerStr = fixVerStr[:-2] + ']'
-                print fixVerStr
+                print(fixVerStr)
 
-            print '  description:         ' + advisory["description"]
+            print('  description:         ' + advisory["description"])

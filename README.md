@@ -12,7 +12,10 @@ Once you have the token, the best and secure way to use it is to put it into an 
 
 In most of the commands however you can simply specify the token on the command line using something like this:
 
-    ./yadda.py --token=a902874d-50f2-464f-8707-780cd5f669a3
+    pipenv run python yadda.py --token=a902874d-50f2-464f-8707-780cd5f669a3
+
+## Installation
+Run `pipenv install --python3` to install all the packages from the Pipfile which are required for the tools to function.
 
 # Tools
 
@@ -21,7 +24,7 @@ This script allows you to list the licenses of a component across [the platforms
 
 Asking for **java** library, **io.vertx:vertx-core**, version **3.9.1**
 
-    $ ./license.py java io.vertx:vertx-core 3.9.1
+    $ pipenv run python license.py java io.vertx:vertx-core 3.9.1
         Looking for license information about "io.vertx:vertx-core" version "3.9.1" in the "java" space...
         Found 2 license(s):
         - id:   Apache-2.0
@@ -33,7 +36,7 @@ Asking for **java** library, **io.vertx:vertx-core**, version **3.9.1**
 
 Asking for **nodejs** library, **less**, version **3.11.3**
 
-    $ ./license.py nodejs less 3.11.3
+    $ pipenv run python license.py nodejs less 3.11.3
     Looking for license information about "less" version "3.11.3" in the "nodejs" space...
     Found 1 license(s):
     - id:   Apache-2.0
@@ -46,7 +49,7 @@ This script allows you to list information regarding a specific vulnerability ac
 Asking for vulnerability **CVE-2020-9483** from the **nvd** database
 
 ```bash
-$ ./vulninfo.py nvd CVE-2020-9483
+$ pipenv run python vulninfo.py nvd CVE-2020-9483
 Fetching information for vulnerability "CVE-2020-9483" from the "java" database...
 - id:               d192e5ad-5948-4bd8-8d00-3c05e83abd17
   library:          org.apache.skywalking:server-storage-plugin
@@ -62,7 +65,7 @@ Fetching information for vulnerability "CVE-2020-9483" from the "java" database.
   cvss:             5
   active:           False
   fixed version(s): [8.0.0]
-  description:      **Resolved** When use H2/MySQL/TiDB as Apache SkyWalking storage, the metadata query through GraphQL protocol, there is a SQL injection vulnerability, which allows to access unpexcted data. Apache SkyWalking 6.0.0 to 6.6.0, 7.0.0 H2/MySQL/TiDB storage implementations don't use the appropriate way to set SQL parameters.
+  description:      **Resolved** When use H2/MySQL/TiDB as Apache SkyWalking storage, the metadata query through GraphQL protocol, there is a SQL injection vulnerability, which allows to access unexpected data. Apache SkyWalking 6.0.0 to 6.6.0, 7.0.0 H2/MySQL/TiDB storage implementations don't use the appropriate way to set SQL parameters.
 ```
 
 ## advisories&#46;py
@@ -71,7 +74,7 @@ This script allows to list the advisories of associated to a given library. Afte
 Asking for **dotnet** library, **System.Text.RegularExpressions**, version **4.3.0**
 
 ```bash
-$ ./advisories.py dotnet System.Text.RegularExpressions 4.3.0
+$ pipenv run python advisories.py dotnet System.Text.RegularExpressions 4.3.0
 Looking for advisories for "System.Text.RegularExpressions" version "4.3.0" in the "dotnet" space...
 Found 1 advisory:
 - id:                  3fbb34a8-ee91-4774-a059-d5452b79d159
@@ -96,7 +99,7 @@ Found 1 advisory:
 ## Help
 If in need of help issue the `--help` flag (all the listed tools support it).
 
-    $ ./license.py --help
+    $ pipenv run python license.py --help
     usage: license.py [-h] [-t API-TOKEN] [-l LOGLEVEL] language name version
 
     positional arguments:
@@ -120,9 +123,9 @@ If in need of help issue the `--help` flag (all the listed tools support it).
 
 # Other general information
 ## Common parameters
-As a common beheaviour across all the tools, it's also possible to specify the log level with any tool using  soething like this:
+As a common behaviour across all the tools, it's also possible to specify the log level with any tool using  something like this:
 
-    ./yadda.py --log=DEBUG
+    pipenv run python yadda.py --log=DEBUG
 Beware: the DEBUG level can be very verbose!
 
 
