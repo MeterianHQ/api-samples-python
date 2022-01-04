@@ -1,5 +1,5 @@
 # Python sample API scripts
-A set of sample calls to the Meterian API in Python: use simple python scripts to leverage the power of the [Meterian API](http://api.meterian.io)
+A set of sample calls to the Meterian API in Python: use simple python scripts to leverage the power of the [Meterian API](http://api.meterian.io). You will need to install the 'requests' python library, or you can just use the provided 'requirements.txt' file. This version uses Python 2.
 
 ## You will need a token to use these tools!
 
