@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-requests = "2.27.1"
+requests = "==2.32.3"
 
 [requires]
 python_version = "3"
