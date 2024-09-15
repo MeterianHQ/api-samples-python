@@ -109,10 +109,11 @@ def _getExternalVulnUrl(linkObj):
     maybeUrl = linkObj["url"]
     if maybeUrl.startswith("https") or maybeUrl.startswith("http"):
         return maybeUrl
+    cve = linkObj["cve"] if "cve" in linkObj else maybeUrl
     if linkObj["type"] == "CVE":
-        return "https://cve.mitre.org/cgi-bin/cvename.cgi?name=" + linkObj["cve"]
+        return "https://cve.mitre.org/cgi-bin/cvename.cgi?name=" + cve
     if linkObj["type"] == "NVD":
-        return "https://nvd.nist.gov/vuln/detail/" + linkObj["cve"]
+        return "https://nvd.nist.gov/vuln/detail/" + cve
 
     return None
 
