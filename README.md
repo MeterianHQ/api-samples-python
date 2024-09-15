@@ -93,6 +93,26 @@ Found 1 advisory:
   description:         A denial of service vulnerability exists when .NET Core improperly process RegEx strings. An attacker who successfully exploited this vulnerability could cause a denial of service against a .NET application. A remote unauthenticated attacker could exploit this vulnerability by issuing specially crafted requests to a .NET Core application.
 ```
 
+## copyright&#46;py
+This script allows you to list the copyright attribution of a component across [the platforms managed by Meterian](https://www.meterian.com/integrations.html#languages). Simply specify the language, the full name of the library and the version: the tool will let you know the copyright attribution and the source, when found. Sometimes it's instant, sometimes it may take a couple of seconds: do not worry, a result will eventually come :)
+
+Asking for **nodejs** library, **axios**, version **1.5.5**
+
+    $ ./copyright.py nodejs axios 1.5.5
+    Looking for copyright attribution about "axios" version "1.5.5" in the "nodejs" space...
+    Found copyright attribution:
+    - text:   Copyright (c) 2014-present Matt Zabriskie
+      source: https://raw.githubusercontent.com/axios/axios/master/LICENSE
+
+
+Asking for **rust** library, **actix**, version **0** (any)
+
+    $ ./copyright.py rust actix 0
+    Looking for copyright attribution about "actix" version "0" in the "rust" space...
+    Found copyright attribution:
+      text:   Copyright (c) 2017 Actix Team
+      source: https://github.com/actix/actix/actix/LICENSE-MIT
+
 ## Help
 If in need of help issue the `--help` flag (all the listed tools support it).
 

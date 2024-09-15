@@ -132,3 +132,8 @@ dmypy.json
 .project
 .pydevproject
 
+# VsCode
+.vscode
+
+# Other
+bb*
